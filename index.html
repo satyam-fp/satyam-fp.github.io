@@ -3,16 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio of a Founding ML Engineer with 3.5 years of experience in software development and machine learning">
-    <meta name="keywords" content="portfolio, machine learning, software engineer, AI, web development">
+    <meta name="description" content="Portfolio of a Founding ML Engineer with 3.5 years of experience in software development and machine learning. Currently building AI copilot for 3D artists at Mixar.">
+    <meta name="keywords" content="portfolio, machine learning, software engineer, AI, web development, ML engineer, founding engineer, Mixar, 3D AI, copilot">
     <meta name="author" content="Your Name">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#2563eb">
     
-    <!-- Open Graph Meta Tags -->
+    <!-- Open Graph Meta Tags for Social Sharing -->
     <meta property="og:title" content="Portfolio - ML Engineer & Software Developer">
-    <meta property="og:description" content="Portfolio showcasing projects and experience in software development and machine learning">
+    <meta property="og:description" content="Portfolio showcasing projects and experience in software development and machine learning. Founding ML Engineer at Mixar building AI copilot for 3D artists.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourusername.github.io/">
+    <meta property="og:image" content="https://yourusername.github.io/assets/images/og-image.jpg">
+    <meta property="og:image:alt" content="Portfolio preview image">
+    <meta property="og:site_name" content="Your Name - Portfolio">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Portfolio - ML Engineer & Software Developer">
+    <meta name="twitter:description" content="Portfolio showcasing projects and experience in software development and machine learning.">
+    <meta name="twitter:image" content="https://yourusername.github.io/assets/images/og-image.jpg">
+    <meta name="twitter:image:alt" content="Portfolio preview image">
+    <meta name="twitter:creator" content="@yourusername">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+    <link rel="manifest" href="assets/icons/site.webmanifest">
     
     <title>Portfolio - ML Engineer & Software Developer</title>
+    
+    <!-- Preconnect to external domains for faster resource loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     
     <!-- Stylesheet -->
     <link rel="stylesheet" href="css/styles.css">
@@ -21,37 +49,40 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Skip to Main Content for Keyboard Navigation -->
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+    
     <!-- Navigation -->
-    <nav id="navbar">
+    <nav id="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="#home">Portfolio</a>
+                <a href="#home" aria-label="Go to home section">Portfolio</a>
             </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+            <ul class="nav-menu" role="menubar" aria-label="Main menu">
+                <li role="none"><a href="#home" class="nav-link" role="menuitem">Home</a></li>
+                <li role="none"><a href="#about" class="nav-link" role="menuitem">About</a></li>
+                <li role="none"><a href="#skills" class="nav-link" role="menuitem">Skills</a></li>
+                <li role="none"><a href="#projects" class="nav-link" role="menuitem">Projects</a></li>
+                <li role="none"><a href="#contact" class="nav-link" role="menuitem">Contact</a></li>
             </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <button class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="nav-menu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero" aria-label="Hero section">
-        <div class="hero-content">
-            <h1 class="hero-title">Your Name</h1>
-            <p class="hero-subtitle">Founding ML Engineer | Software Developer</p>
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero" aria-labelledby="hero-title">
+            <div class="hero-content">
+            <h1 id="hero-title" class="hero-title">Your Name</h1>
+            <p class="hero-subtitle" role="doc-subtitle">Founding ML Engineer | Software Developer</p>
             <p class="hero-tagline">Building AI solutions for the future</p>
             <div class="hero-cta">
                 <a href="#projects" class="btn btn-primary" aria-label="View my projects">View Projects</a>
@@ -61,12 +92,15 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about">
+    <section id="about" class="about" aria-labelledby="about-title">
         <div class="container">
-            <h2 class="section-title">About Me</h2>
+            <h2 id="about-title" class="section-title">About Me</h2>
             <div class="about-content">
                 <div class="about-image">
-                    <img src="assets/images/profile.jpg" alt="Professional profile photo" loading="lazy">
+                    <picture>
+                        <source srcset="assets/images/profile.webp" type="image/webp">
+                        <img src="assets/images/profile.jpg" alt="Professional profile photo of Your Name" loading="lazy">
+                    </picture>
                 </div>
                 <div class="about-text">
                     <h3 class="about-heading">Hello, I'm a Founding ML Engineer</h3>
@@ -86,45 +120,51 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="skills">
+    <section id="skills" class="skills" aria-labelledby="skills-title">
         <div class="container">
-            <h2 class="section-title">Skills</h2>
-            <div id="skills-container" class="skills-grid">
+            <h2 id="skills-title" class="section-title">Skills</h2>
+            <div id="skills-container" class="skills-grid" role="list" aria-label="Technical skills">
                 <!-- Skills will be dynamically rendered -->
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="projects">
+    <section id="projects" class="projects" aria-labelledby="projects-title">
         <div class="container">
-            <h2 class="section-title">Projects</h2>
-            <div id="projects-container" class="projects-grid">
+            <h2 id="projects-title" class="section-title">Projects</h2>
+            <div id="projects-container" class="projects-grid" role="list" aria-label="Portfolio projects">
                 <!-- Projects will be dynamically rendered -->
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <section id="contact" class="contact" aria-labelledby="contact-title">
         <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
+            <h2 id="contact-title" class="section-title">Get In Touch</h2>
             <div class="contact-content">
-                <p class="contact-email">email@example.com</p>
-                <div class="social-links">
-                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
+                <p class="contact-email">
+                    <a href="mailto:email@example.com" aria-label="Send email to email@example.com">email@example.com</a>
+                </p>
+                <div class="social-links" role="navigation" aria-label="Social media links">
+                    <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" aria-label="Visit my LinkedIn profile">
+                        <i class="fab fa-linkedin" aria-hidden="true"></i>
+                        <span class="sr-only">LinkedIn</span>
                     </a>
-                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
+                    <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" aria-label="Visit my GitHub profile">
+                        <i class="fab fa-github" aria-hidden="true"></i>
+                        <span class="sr-only">GitHub</span>
                     </a>
-                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                        <i class="fab fa-twitter"></i>
+                    <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" aria-label="Visit my Twitter profile">
+                        <i class="fab fa-twitter" aria-hidden="true"></i>
+                        <span class="sr-only">Twitter</span>
                     </a>
                 </div>
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -145,7 +185,7 @@
         </button>
     </footer>
 
-    <!-- JavaScript -->
-    <script src="js/main.js"></script>
+    <!-- JavaScript - Deferred for optimal performance -->
+    <script src="js/main.js" defer></script>
 </body>
 </html>

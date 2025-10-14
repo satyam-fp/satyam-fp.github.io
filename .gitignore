@@ -1,0 +1,21 @@
+.kiro/
+.vscode/
+
+# Build output (regenerate with ./build.sh)
+dist/
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.class
+*.o
+*.so
+
+*.DS_Store
+*.ipynb_checkpoints
+*.swp
+*.swo
+*.swn
+*.un~
+*.nbconvert

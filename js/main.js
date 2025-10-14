@@ -311,14 +311,33 @@ function initMobileMenu() {
     
     // Toggle menu on hamburger click
     hamburger.addEventListener('click', function() {
-        hamburger.classList.toggle('active');
+        const isActive = hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
+        
+        // Update ARIA attribute for accessibility
+        hamburger.setAttribute('aria-expanded', isActive);
         
         // Prevent body scroll when menu is open
         if (navMenu.classList.contains('active')) {
             document.body.style.overflow = 'hidden';
+            // Focus first menu item for keyboard navigation
+            const firstLink = navMenu.querySelector('.nav-link');
+            if (firstLink) {
+                setTimeout(() => firstLink.focus(), 100);
+            }
         } else {
             document.body.style.overflow = '';
+        }
+    });
+    
+    // Handle keyboard navigation (Escape key to close menu)
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && navMenu.classList.contains('active')) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+            hamburger.focus(); // Return focus to hamburger button
         }
     });
     
@@ -327,6 +346,7 @@ function initMobileMenu() {
         link.addEventListener('click', function() {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
             document.body.style.overflow = '';
         });
     });
@@ -339,6 +359,7 @@ function initMobileMenu() {
         if (!isClickInsideNav && !isClickOnHamburger && navMenu.classList.contains('active')) {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
             document.body.style.overflow = '';
         }
     });
@@ -438,10 +459,13 @@ function renderSkills() {
         skills[category].forEach(skill => {
             const skillCard = document.createElement('div');
             skillCard.className = 'skill-card';
+            skillCard.setAttribute('role', 'listitem');
+            skillCard.setAttribute('aria-label', `${skill.name} skill`);
             
             // Create icon element
             const iconElement = document.createElement('i');
             iconElement.className = skill.icon;
+            iconElement.setAttribute('aria-hidden', 'true');
             
             // Create skill name element
             const skillName = document.createElement('span');
@@ -529,24 +553,39 @@ function renderProjects() {
     sortedProjects.forEach(project => {
         const projectCard = document.createElement('div');
         projectCard.className = 'project-card';
+        projectCard.setAttribute('role', 'listitem');
         if (project.featured) {
             projectCard.classList.add('featured');
+            projectCard.setAttribute('aria-label', `Featured project: ${project.title}`);
+        } else {
+            projectCard.setAttribute('aria-label', `Project: ${project.title}`);
         }
         
-        // Create project image
+        // Create project image with WebP support
         const projectImage = document.createElement('div');
         projectImage.className = 'project-image';
         
+        // Create picture element for WebP support with fallback
+        const picture = document.createElement('picture');
+        
+        // WebP source
+        const webpSource = document.createElement('source');
+        webpSource.srcset = project.image.replace(/\.(jpg|jpeg|png)$/i, '.webp');
+        webpSource.type = 'image/webp';
+        
+        // Fallback image
         const img = document.createElement('img');
         img.src = project.image;
-        img.alt = project.title;
+        img.alt = `${project.title} - Project screenshot`;
         img.loading = 'lazy';
         img.onerror = function() {
             // Fallback for missing images
             this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect width="400" height="300" fill="%23f0f0f0"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="20" fill="%23999"%3EProject Image%3C/text%3E%3C/svg%3E';
         };
         
-        projectImage.appendChild(img);
+        picture.appendChild(webpSource);
+        picture.appendChild(img);
+        projectImage.appendChild(picture);
         
         // Create project content
         const projectContent = document.createElement('div');
@@ -583,8 +622,8 @@ function renderProjects() {
             githubLink.target = '_blank';
             githubLink.rel = 'noopener noreferrer';
             githubLink.className = 'project-link';
-            githubLink.setAttribute('aria-label', `View ${project.title} on GitHub`);
-            githubLink.innerHTML = '<i class="fab fa-github"></i> GitHub';
+            githubLink.setAttribute('aria-label', `View ${project.title} on GitHub (opens in new tab)`);
+            githubLink.innerHTML = '<i class="fab fa-github" aria-hidden="true"></i> GitHub';
             projectLinks.appendChild(githubLink);
         }
         
@@ -594,8 +633,8 @@ function renderProjects() {
             demoLink.target = '_blank';
             demoLink.rel = 'noopener noreferrer';
             demoLink.className = 'project-link';
-            demoLink.setAttribute('aria-label', `View ${project.title} live demo`);
-            demoLink.innerHTML = '<i class="fas fa-external-link-alt"></i> Live Demo';
+            demoLink.setAttribute('aria-label', `View ${project.title} live demo (opens in new tab)`);
+            demoLink.innerHTML = '<i class="fas fa-external-link-alt" aria-hidden="true"></i> Live Demo';
             projectLinks.appendChild(demoLink);
         }
         
