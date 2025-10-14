@@ -123,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initActiveSectionHighlight();
     initMobileMenu();
     initAboutAnimations();
+    initExperienceAnimations();
     renderSkills();
     renderProjects();
 });
@@ -426,6 +427,40 @@ function initAboutAnimations() {
         
         detailsObserver.observe(aboutDetails);
     }
+}
+
+/**
+ * Initialize scroll-triggered animations for experience section
+ */
+function initExperienceAnimations() {
+    const experienceItems = document.querySelectorAll('.experience-item');
+    
+    if (experienceItems.length === 0) return;
+    
+    // Create Intersection Observer for experience items
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2 // Trigger when 20% of element is visible
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add animate class to trigger animation
+                entry.target.classList.add('animate');
+                
+                // Stop observing after animation is triggered
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all experience items with staggered delay
+    experienceItems.forEach((item, index) => {
+        item.style.transitionDelay = `${index * 0.2}s`;
+        observer.observe(item);
+    });
 }
 
 /**
