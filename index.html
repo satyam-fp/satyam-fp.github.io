@@ -73,6 +73,7 @@
                 <li role="none"><a href="#skills" class="nav-link" role="menuitem">Skills</a></li>
                 <li role="none"><a href="#experience" class="nav-link" role="menuitem">Experience</a></li>
                 <li role="none"><a href="#projects" class="nav-link" role="menuitem">Projects</a></li>
+                <li role="none"><a href="#readings" class="nav-link" role="menuitem">Readings</a></li>
                 <li role="none"><a href="#contact" class="nav-link" role="menuitem">Contact</a></li>
             </ul>
             <button class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="nav-menu">
@@ -244,34 +245,46 @@
         </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="contact" aria-labelledby="contact-title">
+        <!-- Readings Section -->
+        <section id="readings" class="readings" aria-labelledby="readings-title">
             <div class="container">
-                <h2 id="contact-title" class="section-title">Get In Touch</h2>
-                <div class="contact-content">
-                    <p class="contact-email">
-                        <a href="mailto:email@example.com"
-                            aria-label="Send email to email@example.com">email@example.com</a>
-                    </p>
-                    <div class="social-links" role="navigation" aria-label="Social media links">
-                        <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer"
-                            aria-label="Visit my LinkedIn profile">
-                            <i class="fab fa-linkedin" aria-hidden="true"></i>
-                            <span class="sr-only">LinkedIn</span>
-                        </a>
-                        <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer"
-                            aria-label="Visit my GitHub profile">
-                            <i class="fab fa-github" aria-hidden="true"></i>
-                            <span class="sr-only">GitHub</span>
-                        </a>
-                        <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer"
-                            aria-label="Visit my Twitter profile">
-                            <i class="fab fa-twitter" aria-hidden="true"></i>
-                            <span class="sr-only">Twitter</span>
-                        </a>
-                    </div>
+                <h2 id="readings-title" class="section-title">Research & Readings</h2>
+                <p class="readings-intro">Exploring cutting-edge research in AI, ML, and computer graphics. Here are my
+                    latest paper readings and key findings.</p>
+                <div id="readings-container" class="readings-grid" role="list" aria-label="Research paper readings">
+                    <!-- Readings will be dynamically rendered -->
                 </div>
             </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact" aria-labelledby="contact-title"></section>
+        <div class="container">
+            <h2 id="contact-title" class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <p class="contact-email">
+                    <a href="mailto:email@example.com"
+                        aria-label="Send email to email@example.com">email@example.com</a>
+                </p>
+                <div class="social-links" role="navigation" aria-label="Social media links">
+                    <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer"
+                        aria-label="Visit my LinkedIn profile">
+                        <i class="fab fa-linkedin" aria-hidden="true"></i>
+                        <span class="sr-only">LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer"
+                        aria-label="Visit my GitHub profile">
+                        <i class="fab fa-github" aria-hidden="true"></i>
+                        <span class="sr-only">GitHub</span>
+                    </a>
+                    <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer"
+                        aria-label="Visit my Twitter profile">
+                        <i class="fab fa-twitter" aria-hidden="true"></i>
+                        <span class="sr-only">Twitter</span>
+                    </a>
+                </div>
+            </div>
+        </div>
         </section>
     </main>
 
@@ -286,6 +299,7 @@
                     <a href="#skills" class="footer-link">Skills</a>
                     <a href="#experience" class="footer-link">Experience</a>
                     <a href="#projects" class="footer-link">Projects</a>
+                    <a href="#readings" class="footer-link">Readings</a>
                     <a href="#contact" class="footer-link">Contact</a>
                 </nav>
             </div>

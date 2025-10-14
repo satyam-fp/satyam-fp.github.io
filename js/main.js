@@ -76,6 +76,58 @@ const projects = [
     }
 ];
 
+// Readings Data Structure
+const readings = [
+    {
+        id: 1,
+        title: "Attention Mechanisms in Neural Networks",
+        paper: "Attention Is All You Need",
+        authors: "Vaswani et al.",
+        date: "2024-01-15",
+        category: "NLP",
+        summary: "Deep dive into the transformer architecture and self-attention mechanisms that revolutionized natural language processing and beyond.",
+        findings: [
+            "Self-attention allows models to weigh the importance of different parts of the input",
+            "Positional encoding is crucial for maintaining sequence information",
+            "Multi-head attention enables the model to focus on different representation subspaces"
+        ],
+        tags: ["Transformers", "Attention", "Deep Learning", "NLP"],
+        link: "https://arxiv.org/abs/1706.03762"
+    },
+    {
+        id: 2,
+        title: "Diffusion Models for Image Generation",
+        paper: "Denoising Diffusion Probabilistic Models",
+        authors: "Ho et al.",
+        date: "2024-01-10",
+        category: "Computer Vision",
+        summary: "Exploring how diffusion models work by gradually adding noise to data and learning to reverse the process for high-quality image generation.",
+        findings: [
+            "Diffusion models achieve state-of-the-art image generation quality",
+            "The denoising process can be conditioned on various inputs for controlled generation",
+            "Training stability is significantly better than GANs"
+        ],
+        tags: ["Diffusion Models", "Generative AI", "Computer Vision", "Image Synthesis"],
+        link: "https://arxiv.org/abs/2006.11239"
+    },
+    {
+        id: 3,
+        title: "Neural Radiance Fields for 3D Reconstruction",
+        paper: "NeRF: Representing Scenes as Neural Radiance Fields",
+        authors: "Mildenhall et al.",
+        date: "2024-01-05",
+        category: "3D Graphics",
+        summary: "Understanding how neural networks can represent complex 3D scenes as continuous functions, enabling novel view synthesis from sparse inputs.",
+        findings: [
+            "Implicit neural representations can capture fine geometric details",
+            "Volume rendering with neural networks produces photorealistic results",
+            "Positional encoding is essential for learning high-frequency details"
+        ],
+        tags: ["NeRF", "3D Reconstruction", "Neural Rendering", "Computer Graphics"],
+        link: "https://arxiv.org/abs/2003.08934"
+    }
+];
+
 // Skills Data Structure
 const skills = {
     "Software Development": [
@@ -126,6 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initExperienceAnimations();
     renderSkills();
     renderProjects();
+    renderReadings();
 });
 
 /**
@@ -718,6 +771,119 @@ function initProjectsAnimations() {
     // Observe all project cards with staggered delay
     projectCards.forEach((card, index) => {
         card.style.transitionDelay = `${index * 0.1}s`;
+        observer.observe(card);
+    });
+}
+
+/**
+ * Render readings section dynamically from readings data
+ */
+function renderReadings() {
+    const readingsContainer = document.getElementById('readings-container');
+    
+    if (!readingsContainer) return;
+    
+    // Clear existing content
+    readingsContainer.innerHTML = '';
+    
+    // Sort readings by date (most recent first)
+    const sortedReadings = [...readings].sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+    });
+    
+    // Create reading cards
+    sortedReadings.forEach(reading => {
+        const readingCard = document.createElement('div');
+        readingCard.className = 'reading-card';
+        readingCard.setAttribute('role', 'listitem');
+        readingCard.setAttribute('aria-label', `Reading: ${reading.title}`);
+        
+        // Format date
+        const dateObj = new Date(reading.date);
+        const formattedDate = dateObj.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric' 
+        });
+        
+        // Create card content
+        readingCard.innerHTML = `
+            <div class="reading-header">
+                <span class="reading-category">${reading.category}</span>
+                <span class="reading-date">
+                    <i class="far fa-calendar-alt" aria-hidden="true"></i>
+                    ${formattedDate}
+                </span>
+            </div>
+            
+            <h3 class="reading-title">${reading.title}</h3>
+            
+            <div class="reading-paper">
+                <i class="fas fa-file-alt" aria-hidden="true"></i>
+                ${reading.paper}
+            </div>
+            
+            <div class="reading-authors">
+                <strong>Authors:</strong> ${reading.authors}
+            </div>
+            
+            <p class="reading-summary">${reading.summary}</p>
+            
+            <div class="reading-findings">
+                <div class="reading-findings-title">Key Findings</div>
+                <ul>
+                    ${reading.findings.map(finding => `<li>${finding}</li>`).join('')}
+                </ul>
+            </div>
+            
+            <div class="reading-tags">
+                ${reading.tags.map(tag => `<span class="reading-tag">${tag}</span>`).join('')}
+            </div>
+            
+            <a href="${reading.link}" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="reading-link"
+               aria-label="Read paper: ${reading.paper} (opens in new tab)">
+                <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                Read Paper
+            </a>
+        `;
+        
+        readingsContainer.appendChild(readingCard);
+    });
+    
+    // Initialize scroll-triggered animations for readings
+    initReadingsAnimations();
+}
+
+/**
+ * Initialize scroll-triggered animations for readings section
+ */
+function initReadingsAnimations() {
+    const readingCards = document.querySelectorAll('.reading-card');
+    
+    if (readingCards.length === 0) return;
+    
+    // Create Intersection Observer for readings
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all reading cards with staggered delay
+    readingCards.forEach((card, index) => {
+        card.style.transitionDelay = `${index * 0.15}s`;
         observer.observe(card);
     });
 }
