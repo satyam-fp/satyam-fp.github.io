@@ -264,9 +264,9 @@ const skills = {
 };
 
 // Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('Portfolio website initialized');
-    
+
     // Initialize all components
     initHeroAnimations();
     initSmoothScroll();
@@ -285,19 +285,19 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function initHeroAnimations() {
     const hero = document.querySelector('.hero');
-    
+
     if (hero) {
         // Add loaded class to trigger animations
         // Small delay to ensure smooth animation start
         setTimeout(() => {
             hero.classList.add('loaded');
         }, 100);
-        
+
         // Optional: Add parallax effect on scroll
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             const scrolled = window.pageYOffset;
             const heroContent = document.querySelector('.hero-content');
-            
+
             if (heroContent && scrolled < window.innerHeight) {
                 // Subtle parallax effect
                 heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
@@ -313,17 +313,17 @@ function initHeroAnimations() {
  */
 function initSmoothScroll() {
     const navLinks = document.querySelectorAll('a[href^="#"]');
-    
+
     // Check if browser supports smooth scrolling
     const supportsNativeSmoothScroll = 'scrollBehavior' in document.documentElement.style;
-    
+
     navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
-            
+
             if (targetId === '#') return;
-            
+
             const targetSection = document.querySelector(targetId);
             if (targetSection) {
                 if (supportsNativeSmoothScroll) {
@@ -336,7 +336,7 @@ function initSmoothScroll() {
                     // Fallback for browsers without smooth scroll support
                     smoothScrollTo(targetSection.offsetTop, 600);
                 }
-                
+
                 // Close mobile menu if open
                 const hamburger = document.querySelector('.hamburger');
                 const navMenu = document.querySelector('.nav-menu');
@@ -359,7 +359,7 @@ function smoothScrollTo(targetPosition, duration) {
     const startPosition = window.pageYOffset;
     const distance = targetPosition - startPosition;
     let startTime = null;
-    
+
     function animation(currentTime) {
         if (startTime === null) startTime = currentTime;
         const timeElapsed = currentTime - startTime;
@@ -367,7 +367,7 @@ function smoothScrollTo(targetPosition, duration) {
         window.scrollTo(0, run);
         if (timeElapsed < duration) requestAnimationFrame(animation);
     }
-    
+
     // Easing function for smooth animation
     function ease(t, b, c, d) {
         t /= d / 2;
@@ -375,7 +375,7 @@ function smoothScrollTo(targetPosition, duration) {
         t--;
         return -c / 2 * (t * (t - 2) - 1) + b;
     }
-    
+
     requestAnimationFrame(animation);
 }
 
@@ -384,22 +384,22 @@ function smoothScrollTo(targetPosition, duration) {
  */
 function initBackToTop() {
     const backToTopButton = document.getElementById('back-to-top');
-    
+
     if (backToTopButton) {
         // Check if browser supports smooth scrolling
         const supportsNativeSmoothScroll = 'scrollBehavior' in document.documentElement.style;
-        
+
         // Show/hide button based on scroll position
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             if (window.pageYOffset > 300) {
                 backToTopButton.classList.add('visible');
             } else {
                 backToTopButton.classList.remove('visible');
             }
         });
-        
+
         // Scroll to top on click
-        backToTopButton.addEventListener('click', function() {
+        backToTopButton.addEventListener('click', function () {
             if (supportsNativeSmoothScroll) {
                 window.scrollTo({
                     top: 0,
@@ -419,24 +419,24 @@ function initBackToTop() {
 function initActiveSectionHighlight() {
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
-    
+
     // Create an Intersection Observer
     const observerOptions = {
         root: null,
         rootMargin: '-20% 0px -70% 0px', // Trigger when section is in the middle of viewport
         threshold: 0
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const sectionId = entry.target.getAttribute('id');
-                
+
                 // Remove active class from all nav links
                 navLinks.forEach(link => {
                     link.classList.remove('active');
                 });
-                
+
                 // Add active class to corresponding nav link
                 const activeLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
                 if (activeLink) {
@@ -445,7 +445,7 @@ function initActiveSectionHighlight() {
             }
         });
     }, observerOptions);
-    
+
     // Observe all sections
     sections.forEach(section => {
         observer.observe(section);
@@ -459,17 +459,17 @@ function initMobileMenu() {
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
-    
+
     if (!hamburger || !navMenu) return;
-    
+
     // Toggle menu on hamburger click
-    hamburger.addEventListener('click', function() {
+    hamburger.addEventListener('click', function () {
         const isActive = hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
-        
+
         // Update ARIA attribute for accessibility
         hamburger.setAttribute('aria-expanded', isActive);
-        
+
         // Prevent body scroll when menu is open
         if (navMenu.classList.contains('active')) {
             document.body.style.overflow = 'hidden';
@@ -482,9 +482,9 @@ function initMobileMenu() {
             document.body.style.overflow = '';
         }
     });
-    
+
     // Handle keyboard navigation (Escape key to close menu)
-    document.addEventListener('keydown', function(event) {
+    document.addEventListener('keydown', function (event) {
         if (event.key === 'Escape' && navMenu.classList.contains('active')) {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
@@ -493,22 +493,22 @@ function initMobileMenu() {
             hamburger.focus(); // Return focus to hamburger button
         }
     });
-    
+
     // Close menu when a nav link is clicked
     navLinks.forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function () {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
             hamburger.setAttribute('aria-expanded', 'false');
             document.body.style.overflow = '';
         });
     });
-    
+
     // Close menu when clicking outside
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', function (event) {
         const isClickInsideNav = navMenu.contains(event.target);
         const isClickOnHamburger = hamburger.contains(event.target);
-        
+
         if (!isClickInsideNav && !isClickOnHamburger && navMenu.classList.contains('active')) {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
@@ -525,43 +525,43 @@ function initAboutAnimations() {
     const aboutImage = document.querySelector('.about-image');
     const aboutTextElements = document.querySelectorAll('.about-text > *');
     const aboutDetailsParas = document.querySelectorAll('.about-details p');
-    
+
     // Combine all elements to animate
     const elementsToAnimate = [aboutImage, ...aboutTextElements];
-    
+
     // Create Intersection Observer for about section
     const observerOptions = {
         root: null,
         rootMargin: '0px',
         threshold: 0.2 // Trigger when 20% of element is visible
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 // Add animate class to trigger animation
                 entry.target.classList.add('animate');
-                
+
                 // Optional: Stop observing after animation is triggered
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
-    
+
     // Observe all elements
     elementsToAnimate.forEach(element => {
         if (element) {
             observer.observe(element);
         }
     });
-    
+
     // Add staggered animation to about-details paragraphs
     aboutDetailsParas.forEach((para, index) => {
         para.style.opacity = '0';
         para.style.transform = 'translateY(20px)';
         para.style.transition = `opacity 0.6s ease ${0.4 + (index * 0.1)}s, transform 0.6s ease ${0.4 + (index * 0.1)}s`;
     });
-    
+
     // Observe about-details container
     const aboutDetails = document.querySelector('.about-details');
     if (aboutDetails) {
@@ -576,7 +576,7 @@ function initAboutAnimations() {
                 }
             });
         }, observerOptions);
-        
+
         detailsObserver.observe(aboutDetails);
     }
 }
@@ -586,28 +586,28 @@ function initAboutAnimations() {
  */
 function initExperienceAnimations() {
     const experienceItems = document.querySelectorAll('.experience-item');
-    
+
     if (experienceItems.length === 0) return;
-    
+
     // Create Intersection Observer for experience items
     const observerOptions = {
         root: null,
         rootMargin: '0px',
         threshold: 0.2 // Trigger when 20% of element is visible
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 // Add animate class to trigger animation
                 entry.target.classList.add('animate');
-                
+
                 // Stop observing after animation is triggered
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
-    
+
     // Observe all experience items with staggered delay
     experienceItems.forEach((item, index) => {
         item.style.transitionDelay = `${index * 0.2}s`;
@@ -620,57 +620,57 @@ function initExperienceAnimations() {
  */
 function renderSkills() {
     const skillsContainer = document.getElementById('skills-container');
-    
+
     if (!skillsContainer) return;
-    
+
     // Clear existing content
     skillsContainer.innerHTML = '';
-    
+
     // Iterate through each skill category
     Object.keys(skills).forEach(category => {
         // Create category container
         const categoryDiv = document.createElement('div');
         categoryDiv.className = 'skill-category';
-        
+
         // Create category title
         const categoryTitle = document.createElement('h3');
         categoryTitle.className = 'skill-category-title';
         categoryTitle.textContent = category;
         categoryDiv.appendChild(categoryTitle);
-        
+
         // Create skills grid for this category
         const skillsGrid = document.createElement('div');
         skillsGrid.className = 'skill-items';
-        
+
         // Add each skill in the category
         skills[category].forEach(skill => {
             const skillCard = document.createElement('div');
             skillCard.className = 'skill-card';
             skillCard.setAttribute('role', 'listitem');
             skillCard.setAttribute('aria-label', `${skill.name} skill`);
-            
+
             // Create icon element
             const iconElement = document.createElement('i');
             iconElement.className = skill.icon;
             iconElement.setAttribute('aria-hidden', 'true');
-            
+
             // Create skill name element
             const skillName = document.createElement('span');
             skillName.className = 'skill-name';
             skillName.textContent = skill.name;
-            
+
             // Append icon and name to card
             skillCard.appendChild(iconElement);
             skillCard.appendChild(skillName);
-            
+
             // Add card to grid
             skillsGrid.appendChild(skillCard);
         });
-        
+
         categoryDiv.appendChild(skillsGrid);
         skillsContainer.appendChild(categoryDiv);
     });
-    
+
     // Initialize scroll-triggered animations for skills
     initSkillsAnimations();
 }
@@ -680,38 +680,38 @@ function renderSkills() {
  */
 function initSkillsAnimations() {
     const skillCategories = document.querySelectorAll('.skill-category');
-    
+
     if (skillCategories.length === 0) return;
-    
+
     // Create Intersection Observer for skills
     const observerOptions = {
         root: null,
         rootMargin: '0px',
         threshold: 0.1 // Trigger when 10% of element is visible
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 // Add animate class to trigger animation
                 entry.target.classList.add('animate');
-                
+
                 // Get all skill cards in this category
                 const skillCards = entry.target.querySelectorAll('.skill-card');
-                
+
                 // Add staggered animation to each skill card
                 skillCards.forEach((card, index) => {
                     setTimeout(() => {
                         card.classList.add('animate');
                     }, index * 100); // 100ms delay between each card
                 });
-                
+
                 // Stop observing after animation is triggered
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
-    
+
     // Observe all skill categories
     skillCategories.forEach(category => {
         observer.observe(category);
@@ -723,19 +723,19 @@ function initSkillsAnimations() {
  */
 function renderProjects() {
     const projectsContainer = document.getElementById('projects-container');
-    
+
     if (!projectsContainer) return;
-    
+
     // Clear existing content
     projectsContainer.innerHTML = '';
-    
+
     // Sort projects to show featured ones first
     const sortedProjects = [...projects].sort((a, b) => {
         if (a.featured && !b.featured) return -1;
         if (!a.featured && b.featured) return 1;
         return 0;
     });
-    
+
     // Create project cards
     sortedProjects.forEach(project => {
         const projectCard = document.createElement('div');
@@ -747,62 +747,62 @@ function renderProjects() {
         } else {
             projectCard.setAttribute('aria-label', `Project: ${project.title}`);
         }
-        
+
         // Create project image with WebP support
         const projectImage = document.createElement('div');
         projectImage.className = 'project-image';
-        
+
         // Create picture element for WebP support with fallback
         const picture = document.createElement('picture');
-        
+
         // WebP source
         const webpSource = document.createElement('source');
         webpSource.srcset = project.image.replace(/\.(jpg|jpeg|png)$/i, '.webp');
         webpSource.type = 'image/webp';
-        
+
         // Fallback image
         const img = document.createElement('img');
         img.src = project.image;
         img.alt = `${project.title} - Project screenshot`;
         img.loading = 'lazy';
-        img.onerror = function() {
+        img.onerror = function () {
             // Fallback for missing images
             this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect width="400" height="300" fill="%23f0f0f0"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="20" fill="%23999"%3EProject Image%3C/text%3E%3C/svg%3E';
         };
-        
+
         picture.appendChild(webpSource);
         picture.appendChild(img);
         projectImage.appendChild(picture);
-        
+
         // Create project content
         const projectContent = document.createElement('div');
         projectContent.className = 'project-content';
-        
+
         // Project title
         const projectTitle = document.createElement('h3');
         projectTitle.className = 'project-title';
         projectTitle.textContent = project.title;
-        
+
         // Project description
         const projectDescription = document.createElement('p');
         projectDescription.className = 'project-description';
         projectDescription.textContent = project.description;
-        
+
         // Technology tags
         const techTags = document.createElement('div');
         techTags.className = 'project-tech-tags';
-        
+
         project.technologies.forEach(tech => {
             const tag = document.createElement('span');
             tag.className = 'tech-tag';
             tag.textContent = tech;
             techTags.appendChild(tag);
         });
-        
+
         // Project links
         const projectLinks = document.createElement('div');
         projectLinks.className = 'project-links';
-        
+
         if (project.links.github) {
             const githubLink = document.createElement('a');
             githubLink.href = project.links.github;
@@ -813,7 +813,7 @@ function renderProjects() {
             githubLink.innerHTML = '<i class="fab fa-github" aria-hidden="true"></i> GitHub';
             projectLinks.appendChild(githubLink);
         }
-        
+
         if (project.links.demo) {
             const demoLink = document.createElement('a');
             demoLink.href = project.links.demo;
@@ -824,21 +824,21 @@ function renderProjects() {
             demoLink.innerHTML = '<i class="fas fa-external-link-alt" aria-hidden="true"></i> Live Demo';
             projectLinks.appendChild(demoLink);
         }
-        
+
         // Append all content elements
         projectContent.appendChild(projectTitle);
         projectContent.appendChild(projectDescription);
         projectContent.appendChild(techTags);
         projectContent.appendChild(projectLinks);
-        
+
         // Append image and content to card
         projectCard.appendChild(projectImage);
         projectCard.appendChild(projectContent);
-        
+
         // Add card to container
         projectsContainer.appendChild(projectCard);
     });
-    
+
     // Initialize scroll-triggered animations for projects
     initProjectsAnimations();
 }
@@ -848,16 +848,16 @@ function renderProjects() {
  */
 function initProjectsAnimations() {
     const projectCards = document.querySelectorAll('.project-card');
-    
+
     if (projectCards.length === 0) return;
-    
+
     // Create Intersection Observer for projects
     const observerOptions = {
         root: null,
         rootMargin: '0px',
         threshold: 0.1
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -866,7 +866,7 @@ function initProjectsAnimations() {
             }
         });
     }, observerOptions);
-    
+
     // Observe all project cards with staggered delay
     projectCards.forEach((card, index) => {
         card.style.transitionDelay = `${index * 0.1}s`;
@@ -879,32 +879,32 @@ function initProjectsAnimations() {
  */
 function renderReadings() {
     const readingsContainer = document.getElementById('readings-container');
-    
+
     if (!readingsContainer) return;
-    
+
     // Clear existing content
     readingsContainer.innerHTML = '';
-    
+
     // Sort readings by date (most recent first)
     const sortedReadings = [...readings].sort((a, b) => {
         return new Date(b.date) - new Date(a.date);
     });
-    
+
     // Create reading cards
     sortedReadings.forEach(reading => {
         const readingCard = document.createElement('div');
         readingCard.className = 'reading-card';
         readingCard.setAttribute('role', 'listitem');
         readingCard.setAttribute('aria-label', `Reading: ${reading.title}`);
-        
+
         // Format date
         const dateObj = new Date(reading.date);
-        const formattedDate = dateObj.toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
+        const formattedDate = dateObj.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
         });
-        
+
         // Create card content
         readingCard.innerHTML = `
             <div class="reading-header">
@@ -948,10 +948,10 @@ function renderReadings() {
                 Read Paper
             </a>
         `;
-        
+
         readingsContainer.appendChild(readingCard);
     });
-    
+
     // Initialize scroll-triggered animations for readings
     initReadingsAnimations();
 }
@@ -961,16 +961,16 @@ function renderReadings() {
  */
 function initReadingsAnimations() {
     const readingCards = document.querySelectorAll('.reading-card');
-    
+
     if (readingCards.length === 0) return;
-    
+
     // Create Intersection Observer for readings
     const observerOptions = {
         root: null,
         rootMargin: '0px',
         threshold: 0.1
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -979,7 +979,7 @@ function initReadingsAnimations() {
             }
         });
     }, observerOptions);
-    
+
     // Observe all reading cards with staggered delay
     readingCards.forEach((card, index) => {
         card.style.transitionDelay = `${index * 0.15}s`;

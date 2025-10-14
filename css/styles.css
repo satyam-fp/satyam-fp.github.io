@@ -979,11 +979,15 @@ section {
 
 .experience-item:nth-child(even) .experience-content {
     order: 1;
-    text-align: right;
+    text-align: left;
 }
 
 .experience-item:nth-child(even) .experience-tech {
-    justify-content: flex-end;
+    justify-content: flex-start;
+}
+
+.experience-item:nth-child(even) .experience-highlights li {
+    text-align: left;
 }
 
 .experience-item::after {
