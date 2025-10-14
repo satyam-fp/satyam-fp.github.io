@@ -4,73 +4,109 @@
 const projects = [
     {
         id: 1,
-        title: "AI Copilot for 3D Artists",
-        description: "Revolutionary AI-powered tool that assists 3D artists and designers in their creative workflow, leveraging machine learning to enhance productivity and creativity.",
+        title: "SeamGPT: 3D Mesh Cutting System",
+        description: "Implemented complete SeamGPT architecture from scratch for predictive surface cutting and UV unwrapping. Built autoregressive sequence generation system with point cloud encoder, HourGlass decoder, and strategic sampling of 61,440 points for optimal seam prediction.",
         image: "assets/images/projects/project1.jpg",
-        technologies: ["Python", "TensorFlow", "React", "Node.js"],
+        technologies: ["Python", "PyTorch", "Point Cloud", "Transformers", "3D Graphics"],
         links: {
-            github: "https://github.com/username/ai-copilot",
-            demo: "https://demo-ai-copilot.com"
+            github: "https://github.com/satyam-fp",
+            demo: "#"
         },
         featured: true
     },
     {
         id: 2,
-        title: "E-Commerce Platform",
-        description: "Full-stack e-commerce solution with real-time inventory management, secure payment processing, and responsive design for optimal user experience.",
+        title: "VLM Fine-tuning for Procedural Textures",
+        description: "Fine-tuned Vision Language Models (8B parameter Llava_hf and MiMo-VL-7B-SFT) using LoRA for accurate procedural texture generation in Blender. Conducted scaling law experiments and showcased results to multiple studios.",
         image: "assets/images/projects/project2.jpg",
-        technologies: ["React", "Node.js", "MongoDB", "Stripe"],
+        technologies: ["Python", "PyTorch", "LoRA", "VLM", "Blender", "Transformers"],
         links: {
-            github: "https://github.com/username/ecommerce-platform",
-            demo: "https://demo-ecommerce.com"
+            github: "https://github.com/satyam-fp",
+            demo: "#"
         },
         featured: true
     },
     {
         id: 3,
-        title: "Machine Learning Model Trainer",
-        description: "Web-based platform for training and deploying machine learning models with an intuitive interface for data scientists and ML engineers.",
+        title: "AI-Powered Blender Fork",
+        description: "Built Blender fork to enable AI features in 3D editor software, creating a Cursor-like experience for 3D workflows. Developed AI agents for procedural texture generation using Blender's node-based interface.",
         image: "assets/images/projects/project3.jpg",
-        technologies: ["Python", "PyTorch", "Flask", "Docker"],
+        technologies: ["Python", "Blender", "AI Agents", "Node Systems", "3D Graphics"],
         links: {
-            github: "https://github.com/username/ml-trainer",
-            demo: "https://demo-ml-trainer.com"
+            github: "https://github.com/satyam-fp",
+            demo: "#"
         },
-        featured: false
+        featured: true
     },
     {
         id: 4,
-        title: "Task Management App",
-        description: "Collaborative task management application with real-time updates, team collaboration features, and advanced filtering capabilities.",
+        title: "Business Rule Engine (BRE)",
+        description: "Engineered a comprehensive suite of Business Rule Engines to automate loan approval workflows at Leo1, enhancing credit underwriting efficiency and cutting manual work by 5x. Built modular framework for real-time database configurations.",
         image: "assets/images/projects/project4.jpg",
-        technologies: ["TypeScript", "React", "Firebase", "Material-UI"],
+        technologies: ["Python", "FastAPI", "PostgreSQL", "Docker", "Microservices"],
         links: {
-            github: "https://github.com/username/task-manager",
-            demo: "https://demo-task-manager.com"
+            github: "https://github.com/satyam-fp",
+            demo: "#"
         },
         featured: false
     },
     {
         id: 5,
-        title: "Computer Vision Pipeline",
-        description: "End-to-end computer vision pipeline for object detection and image classification with real-time processing capabilities.",
+        title: "Loan Management System Integration",
+        description: "Integrated third-party Loan Management System (LMS) at Leo1, cutting post-disbursal loan processing time by 50% and reducing system errors by 80%. Streamlined data integration using webhooks, callbacks, and cron jobs.",
         image: "assets/images/projects/project5.jpg",
-        technologies: ["Python", "OpenCV", "TensorFlow", "AWS"],
+        technologies: ["Python", "Django", "PostgreSQL", "RabbitMQ", "AWS"],
         links: {
-            github: "https://github.com/username/cv-pipeline",
-            demo: "https://demo-cv-pipeline.com"
+            github: "https://github.com/satyam-fp",
+            demo: "#"
         },
         featured: false
     },
     {
         id: 6,
-        title: "Portfolio Website Builder",
-        description: "No-code portfolio website builder that allows users to create stunning portfolio sites with drag-and-drop functionality.",
+        title: "Payment Unification Microservice",
+        description: "Developed high-performance payment unification microservice capable of processing millions of transactions daily. Implemented distributed system to notify all interconnected services, streamlining payment requirements.",
         image: "assets/images/projects/project6.jpg",
-        technologies: ["JavaScript", "Vue.js", "CSS3", "GitHub Pages"],
+        technologies: ["Python", "FastAPI", "MongoDB", "RabbitMQ", "Microservices"],
         links: {
-            github: "https://github.com/username/portfolio-builder",
-            demo: "https://demo-portfolio-builder.com"
+            github: "https://github.com/satyam-fp",
+            demo: "#"
+        },
+        featured: false
+    },
+    {
+        id: 7,
+        title: "Gamified Loyalty Program",
+        description: "Devised and implemented a gamified loyalty program for Leo1's education platform, increasing user engagement by 35% and user retention by 28%. Built engaging user interfaces with ReactJS.",
+        image: "assets/images/projects/project4.jpg",
+        technologies: ["Python", "Django", "ReactJS", "PostgreSQL", "Redis"],
+        links: {
+            github: "https://github.com/satyam-fp",
+            demo: "#"
+        },
+        featured: false
+    },
+    {
+        id: 5,
+        title: "Borrower Onboarding System",
+        description: "Revamped borrower onboarding backend by developing multiple RESTful APIs, reducing onboarding time by 15% and improving overall efficiency. Created intuitive interfaces for 20,000+ active users monthly.",
+        image: "assets/images/projects/project5.jpg",
+        technologies: ["Python", "FastAPI", "ReactJS", "PostgreSQL", "AWS"],
+        links: {
+            github: "https://github.com/satyam-fp",
+            demo: "#"
+        },
+        featured: false
+    },
+    {
+        id: 6,
+        title: "System Performance Optimization",
+        description: "Leveraged advanced Python concepts (decorators, middleware, multi-threading, multiprocessing) to improve system scalability by 20%. Analyzed legacy system inefficiencies, reducing service escalations by 30%.",
+        image: "assets/images/projects/project6.jpg",
+        technologies: ["Python", "FastAPI", "Docker", "AWS", "PostgreSQL"],
+        links: {
+            github: "https://github.com/satyam-fp",
+            demo: "#"
         },
         featured: false
     }
@@ -80,12 +116,46 @@ const projects = [
 const readings = [
     {
         id: 1,
+        title: "Autoregressive 3D Mesh Cutting for UV Unwrapping",
+        paper: "SeamGPT: Autoregressive Mesh Cutting for UV Unwrapping",
+        authors: "Research Team",
+        date: "2025-01-20",
+        category: "3D Graphics",
+        summary: "Implemented complete architecture from scratch for predictive surface cutting. SeamGPT formulates 3D mesh cutting as autoregressive sequence generation, enabling semantically meaningful surface decomposition for UV unwrapping.",
+        findings: [
+            "Strategic point cloud sampling (61,440 points on vertices/edges) ensures valid cutting locations",
+            "Coordinate quantization into 1024 discrete bins transforms continuous regression into discrete classification",
+            "HourGlass decoder architecture with multi-level processing handles sequence dependencies effectively",
+            "yzx geometric ordering provides training consistency and deterministic sequences"
+        ],
+        tags: ["3D Graphics", "Transformers", "UV Unwrapping", "Point Cloud", "Autoregressive"],
+        link: "#"
+    },
+    {
+        id: 2,
+        title: "Vision Language Models for Procedural Textures",
+        paper: "VLMaterial: Vision-Language Models for Material Generation",
+        authors: "Open Source Community",
+        date: "2025-01-15",
+        category: "Computer Vision",
+        summary: "Explored and fine-tuned VLMs for generating accurate procedural textures in Blender. Conducted LoRA fine-tuning of 8B parameter models including Llava_hf and MiMo-VL-7B-SFT on custom datasets.",
+        findings: [
+            "LoRA fine-tuning enables efficient adaptation of large VLMs with minimal parameters",
+            "Scaling law experiments reveal optimal dataset sizes for texture generation tasks",
+            "Vision-language alignment crucial for understanding node-based procedural workflows",
+            "Multi-scale dataset training improves generalization across different texture complexities"
+        ],
+        tags: ["VLM", "LoRA", "Fine-tuning", "Procedural Textures", "Blender"],
+        link: "#"
+    },
+    {
+        id: 3,
         title: "Attention Mechanisms in Neural Networks",
         paper: "Attention Is All You Need",
         authors: "Vaswani et al.",
-        date: "2024-01-15",
+        date: "2024-12-10",
         category: "NLP",
-        summary: "Deep dive into the transformer architecture and self-attention mechanisms that revolutionized natural language processing and beyond.",
+        summary: "Deep dive into the transformer architecture and self-attention mechanisms that revolutionized natural language processing and form the foundation of modern VLMs.",
         findings: [
             "Self-attention allows models to weigh the importance of different parts of the input",
             "Positional encoding is crucial for maintaining sequence information",
@@ -95,27 +165,45 @@ const readings = [
         link: "https://arxiv.org/abs/1706.03762"
     },
     {
-        id: 2,
-        title: "Diffusion Models for Image Generation",
-        paper: "Denoising Diffusion Probabilistic Models",
-        authors: "Ho et al.",
-        date: "2024-01-10",
-        category: "Computer Vision",
-        summary: "Exploring how diffusion models work by gradually adding noise to data and learning to reverse the process for high-quality image generation.",
+        id: 4,
+        title: "Point Cloud Processing with Transformers",
+        paper: "Point Cloud Transformers for 3D Understanding",
+        authors: "Various Researchers",
+        date: "2024-12-05",
+        category: "3D Graphics",
+        summary: "Understanding how transformer architectures can be applied to point cloud data for 3D shape understanding, crucial for SeamGPT's shape encoder implementation.",
         findings: [
-            "Diffusion models achieve state-of-the-art image generation quality",
-            "The denoising process can be conditioned on various inputs for controlled generation",
-            "Training stability is significantly better than GANs"
+            "Cross-attention and self-attention layers effectively process unordered point sets",
+            "Strategic sampling strategies improve computational efficiency while preserving geometric features",
+            "Point cloud transformers can compress spatial information into latent embeddings",
+            "Multi-scale processing captures both local and global geometric patterns"
         ],
-        tags: ["Diffusion Models", "Generative AI", "Computer Vision", "Image Synthesis"],
-        link: "https://arxiv.org/abs/2006.11239"
+        tags: ["Point Cloud", "Transformers", "3D Understanding", "Shape Encoding"],
+        link: "#"
     },
     {
-        id: 3,
+        id: 5,
+        title: "LoRA: Low-Rank Adaptation of Large Models",
+        paper: "LoRA: Low-Rank Adaptation of Large Language Models",
+        authors: "Hu et al.",
+        date: "2024-11-20",
+        category: "ML",
+        summary: "Studied efficient fine-tuning techniques for large models. Applied LoRA to fine-tune 8B parameter VLMs for procedural texture generation with minimal computational overhead.",
+        findings: [
+            "Low-rank decomposition enables parameter-efficient fine-tuning of billion-parameter models",
+            "LoRA adapters can be trained with significantly less memory than full fine-tuning",
+            "Rank selection impacts model adaptation quality and computational efficiency",
+            "Multiple LoRA adapters can be combined for multi-task scenarios"
+        ],
+        tags: ["LoRA", "Fine-tuning", "Parameter Efficiency", "Large Models"],
+        link: "https://arxiv.org/abs/2106.09685"
+    },
+    {
+        id: 6,
         title: "Neural Radiance Fields for 3D Reconstruction",
         paper: "NeRF: Representing Scenes as Neural Radiance Fields",
         authors: "Mildenhall et al.",
-        date: "2024-01-05",
+        date: "2024-11-10",
         category: "3D Graphics",
         summary: "Understanding how neural networks can represent complex 3D scenes as continuous functions, enabling novel view synthesis from sparse inputs.",
         findings: [
@@ -130,37 +218,48 @@ const readings = [
 
 // Skills Data Structure
 const skills = {
-    "Software Development": [
-        { name: "JavaScript", icon: "fab fa-js" },
-        { name: "Python", icon: "fab fa-python" },
-        { name: "TypeScript", icon: "fab fa-js" },
-        { name: "React", icon: "fab fa-react" },
-        { name: "Node.js", icon: "fab fa-node-js" },
-        { name: "Git", icon: "fab fa-git-alt" },
-        { name: "HTML5", icon: "fab fa-html5" },
-        { name: "CSS3", icon: "fab fa-css3-alt" }
-    ],
     "Machine Learning & AI": [
-        { name: "TensorFlow", icon: "fas fa-brain" },
         { name: "PyTorch", icon: "fas fa-fire" },
-        { name: "Scikit-learn", icon: "fas fa-chart-line" },
-        { name: "Neural Networks", icon: "fas fa-project-diagram" },
-        { name: "Computer Vision", icon: "fas fa-eye" },
-        { name: "NLP", icon: "fas fa-language" }
+        { name: "Vision Language Models", icon: "fas fa-brain" },
+        { name: "LoRA Fine-tuning", icon: "fas fa-sliders-h" },
+        { name: "Transformers", icon: "fas fa-project-diagram" },
+        { name: "Point Cloud Processing", icon: "fas fa-cube" },
+        { name: "Computer Vision", icon: "fas fa-eye" }
     ],
-    "3D & Graphics": [
-        { name: "3D Modeling", icon: "fas fa-cube" },
-        { name: "Computer Graphics", icon: "fas fa-palette" },
-        { name: "Rendering", icon: "fas fa-image" },
-        { name: "AI for Artists", icon: "fas fa-magic" }
+    "Backend Development": [
+        { name: "Python", icon: "fab fa-python" },
+        { name: "FastAPI", icon: "fas fa-bolt" },
+        { name: "Django", icon: "fas fa-server" },
+        { name: "JavaScript", icon: "fab fa-js" },
+        { name: "Java", icon: "fab fa-java" },
+        { name: "REST APIs", icon: "fas fa-exchange-alt" }
     ],
-    "Tools & Technologies": [
-        { name: "Docker", icon: "fab fa-docker" },
-        { name: "AWS", icon: "fab fa-aws" },
-        { name: "MongoDB", icon: "fas fa-database" },
+    "3D Graphics & Tools": [
+        { name: "Blender", icon: "fas fa-cube" },
+        { name: "3D Modeling", icon: "fas fa-cubes" },
+        { name: "Procedural Textures", icon: "fas fa-palette" },
+        { name: "UV Unwrapping", icon: "fas fa-map" },
+        { name: "Node Systems", icon: "fas fa-sitemap" }
+    ],
+    "Frontend Development": [
+        { name: "ReactJS", icon: "fab fa-react" },
+        { name: "React Native", icon: "fab fa-react" },
+        { name: "HTML5", icon: "fab fa-html5" },
+        { name: "CSS3", icon: "fab fa-css3-alt" },
+        { name: "JavaScript", icon: "fab fa-js" }
+    ],
+    "Databases": [
         { name: "PostgreSQL", icon: "fas fa-database" },
-        { name: "REST APIs", icon: "fas fa-server" },
-        { name: "CI/CD", icon: "fas fa-sync-alt" }
+        { name: "MongoDB", icon: "fas fa-database" },
+        { name: "MySQL", icon: "fas fa-database" }
+    ],
+    "Cloud & DevOps": [
+        { name: "AWS", icon: "fab fa-aws" },
+        { name: "Docker", icon: "fab fa-docker" },
+        { name: "Microservices", icon: "fas fa-cubes" },
+        { name: "RabbitMQ", icon: "fas fa-stream" },
+        { name: "Celery", icon: "fas fa-tasks" },
+        { name: "Postman", icon: "fas fa-paper-plane" }
     ]
 };
 
