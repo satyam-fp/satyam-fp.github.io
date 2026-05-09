@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>satyam@kumar:~$</title>
+<title>satyam@kumar:~/contact$</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<script src="content.js" defer></script>
+<link rel="stylesheet" href="../style.css">
+<script src="../content.js" defer></script>
 <script src="render.js" defer></script>
 </head>
-<body data-path="~/satyam" data-file="portfolio.md">
+<body data-path="~/satyam/contact" data-file="contact.md">
 <div class="statusbar-top">
   <span class="sb-chip">tmux</span>
   <span class="sb-user">satyam@kumar</span>
   <span class="sb-sep">│</span>
   <nav class="sb-nav">
-    <a href="/" class="active">~/</a>
+    <a href="/">~/</a>
     <a href="/blog/">blog/</a>
-    <a href="/contact/">contact/</a>
+    <a href="/contact/" class="active">contact/</a>
   </nav>
   <span class="sb-spacer"></span>
   <span class="sb-right sb-hide-sm"><span class="k">role</span> chief-ai-officer <span class="sb-sep">│</span> <span class="k">tty</span> ttys001 <span class="sb-sep">│</span></span>
@@ -28,7 +28,7 @@
 <main id="root"></main>
 <div class="statusbar-bot">
   <span class="sb-chip">NORMAL</span>
-  <span class="sb-dim" data-bar="file">portfolio.md</span>
+  <span class="sb-dim">contact.md</span>
   <span class="sb-sep">│</span>
   <span class="sb-dim sb-hide-sm">satyam-fp.github.io</span>
   <span class="sb-spacer"></span>
@@ -36,7 +36,6 @@
   <span class="sb-right"><span class="k">v</span> 1.0.0 <span class="sb-sep">│</span> <span class="k">100%</span></span>
 </div>
 <script>
-  // Live clock + uptime in the status bars
   const start = Date.now();
   const pad = n => String(n).padStart(2, "0");
   function tick() {
