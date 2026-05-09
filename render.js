@@ -12,7 +12,7 @@ const banner = String.raw`
 │        ██ ██   ██    ██       ██    ██   ██ ██  ██  ██      │
 │   ███████ ██   ██    ██       ██    ██   ██ ██      ██      │
 │                                                             │
-│   chief ai officer · mixar  ·  mumbai, india                │
+│   chief ai officer · mixar  ·  san francisco, usa           │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘`;
 
@@ -38,7 +38,10 @@ root.innerHTML = `
 
   ${promptLine("ls now/")}
   <ul class="bullet">
-    ${c.now.map(n => `<li><span class="title-line">${esc(n.title)}</span>\n   ${esc(n.summary)}</li>`).join("")}
+    ${c.projects.filter(p => p.status === "active" || p.status === "exploring").map(p =>
+      `<li><a href="/projects/#${esc(p.slug)}"><span class="title-line">${esc(p.title)}</span></a>\n   ${esc(p.summary)}</li>`
+    ).join("")}
+    <li class="dim">view all <a href="/projects/">/projects</a> →</li>
   </ul>
 
   ${promptLine("git log --oneline work/")}
