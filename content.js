@@ -15,61 +15,105 @@ window.CONTENT = {
   // Each project links from homepage to /projects/#<slug>.
   projects: [
     {
-      slug: "scene-reconstruction",
-      title: "Scene reconstruction",
+      slug: "video-pipeline",
+      title: "3D-to-video pipeline",
       status: "active",
-      period: "2025 - present",
-      summary: "ML pipeline that reconstructs end-to-end 3D scenes from 2D images. Foundational layer for downstream AI tooling inside the editor.",
-      details: "Reconstructing photorealistic 3D scenes from sparse 2D input is the entry point for any AI-driven 3D workflow. This pipeline takes a small set of images and produces a clean scene representation that downstream Mixar agents can edit, retexture, or animate.",
-      stack: ["PyTorch", "Point-cloud transformers", "Multi-view geometry"],
+      period: "May 2026 - present",
+      summary: "Stacks IC-LoRA adapters on LTX-2 (22B distilled video diffusion) and renders Blender-driven depth + cryptomatte + first-frame style anchor. ~80s per 5s clip on a single RTX 6000.",
+      details: "Geometry and camera come from a 3D scene; material and light come from the prompt. Blender produces the conditioning passes (depth, cryptomatte, first-frame anchor); the runner stacks IC-LoRA adapters on top of LTX-2 and generates per shot.",
+      stack: ["LTX-2 (22B)", "IC-LoRA", "Blender", "Cryptomatte", "RTX 6000"],
       highlights: [
-        "End-to-end: 2D images to a mesh + texture-ready scene.",
-        "Robust to sparse views and uncalibrated inputs.",
-        "Foundational layer for downstream AI tooling inside the editor."
+        "~80s per 5s clip on a single RTX 6000.",
+        "Mapped which LoRA stacks help vs. degrade the 22B distilled checkpoint.",
+        "Found the 128-divisible resolution constraint (compound stride: VAE × IC-LoRA reference downscale × patchifier).",
+        "Identified the 121-frame single-clip coherence ceiling.",
+        "Fixed attention-mask semantics that were wiping out background geometry."
       ]
     },
     {
-      slug: "surface-cutting",
-      title: "Surface cutting",
+      slug: "gpu-orchestration",
+      title: "GPU orchestration layer",
       status: "active",
-      period: "2025 - present",
-      summary: "Foundational models for intelligent UV unwrapping and seam generation. Implemented SeamGPT from scratch.",
-      details: "UV unwrapping is one of the most repetitive parts of 3D content creation. SeamGPT reformulates mesh cutting as autoregressive sequence generation: the model predicts one cut at a time over a quantized representation of the mesh, beating hand-tuned heuristics on real production geometry.",
-      stack: ["PyTorch", "Autoregressive transformers", "Point-cloud encoder", "HourGlass decoder"],
+      period: "Apr 2026 - present",
+      summary: "Self-scaling GPU fleet — VMs auto-register, advertise services, and start receiving routed workloads with zero deploys. Kubernetes-lite for GPU inference.",
+      details: "Routes 6 GPU services across 6–22 GB VRAM budgets with 4 priority levels. VRAM-aware dispatching on a 2s loop with 3-attempt exponential backoff (5s–120s), dead-letter queue for credit refunds, and timeout handling for stuck jobs. Real-time fleet dashboard with per-worker health, job lifecycle metrics, and live queue stats.",
+      stack: ["Redis", "GPU VMs", "Service discovery", "Real-time dashboard"],
       highlights: [
-        "61,440-point sampling on vertices and edges preserves geometry while staying tractable.",
-        "1024-bin coordinate quantization turns regression into classification.",
-        "yzx ordering produces deterministic, comparable sequences.",
-        "Outperforms hand-tuned heuristics on real production meshes."
+        "6 GPU services routed across 6–22 GB VRAM budgets, 4 priority levels.",
+        "VRAM-aware dispatching with exponential backoff (5s–120s) and DLQ for credit refunds.",
+        "Pipelined 8 Redis ops per stats query; batch-loaded jobs via MGET.",
+        "Hardened with duplicate-completion prevention and automatic pruning of offline workers."
+      ]
+    },
+    {
+      slug: "seam-prediction",
+      title: "Seam prediction (SeamNet)",
+      status: "active",
+      period: "Mar 2026 - present",
+      summary: "GNN-based edge classifier for automated UV unwrapping. 96.4% train F1 on 72 meshes; scaled to 38k objects with 0.600 val / 0.618 test F1 across 776 unseen meshes.",
+      details: "ML model for automated UV unwrapping. SeamNet uses PyTorch Geometric's TransformerConv with learned edge projections for mesh-based seam classification. Earlier iteration (SeamGPT) framed cutting as autoregressive sequence generation; SeamNet's GNN approach now leads.",
+      stack: ["PyTorch Geometric", "TransformerConv", "GNN", "Mixed precision"],
+      highlights: [
+        "96.4% train F1 on the initial 72-mesh dataset.",
+        "Scaled to 38k objects over 100k steps; 0.600 val F1 / 0.618 test F1 on 776 unseen meshes.",
+        "Eliminated NaN instabilities via edge-projection normalization and BCEWithLogitsLoss on raw logits.",
+        "Regularization sweep across dropout, weight decay, and connectivity loss."
+      ]
+    },
+    {
+      slug: "scene-reconstruction",
+      title: "Scene reconstruction pipeline",
+      status: "active",
+      period: "Feb 2026 - present",
+      summary: "Single image → full 3D scene in Blender. VGGT for geometry, SAM 3 for segmentation, SAM3D for per-object reconstruction, MoGe for monocular geometry, Claude VLM for semantic labeling.",
+      details: "End-to-end pipeline that turns a single photograph into an editable Blender scene. Combines VGGT, SAM 3, SAM3D, and MoGe into a unified inference stack. Per-object mesh recovery, pose estimation, and semantic labeling via Claude VLM. Foundational layer for downstream AI tooling in the editor.",
+      stack: ["VGGT", "SAM 3", "SAM3D", "MoGe", "Claude VLM", "Blender", "PyTorch3D"],
+      highlights: [
+        "Single image to full 3D blockout scene with per-object meshes.",
+        "Pointmap sharing across MoGe + DiNO ViT-L + diffusion eliminates redundant depth compute.",
+        "Hybrid camera-extrinsics ground-plane detection with EXIF-aware orientation handling.",
+        "PyTorch3D coordinate conventions, voxel-based shape representation.",
+        "Multi-frame segmentation handling for non-overlapping inputs."
+      ]
+    },
+    {
+      slug: "scene-ast",
+      title: "Scene-AST",
+      status: "exploring",
+      period: "ongoing",
+      summary: "Structured scene representation for better 3D context retrieval with LLMs.",
+      details: "Research direction. An AST-like representation of a 3D scene that LLMs can navigate, reason about, and edit — making 3D context retrieval more reliable than ad-hoc scene dumps.",
+      stack: [],
+      highlights: [
+        "Structured representation that survives round-tripping through an LLM.",
+        "Targeted at agent workflows that need to understand and modify Blender scenes."
+      ]
+    },
+    {
+      slug: "gh-profile-updater",
+      title: "gh-profile-updater",
+      status: "shipped",
+      period: "Feb 2026",
+      summary: "Claude Code plugin that generates impact-driven GitHub profile READMEs from git activity, with automated PR creation and velocity archiving.",
+      details: "Released plugin. Generates impact-driven profile READMEs from your git activity, opens a PR with the update, and archives velocity history over time. Auto-clone support means it works without a pre-existing local copy of the profile repo.",
+      stack: ["Claude Code", "Plugin SDK", "Git"],
+      highlights: [
+        "Auto-clone support — runs without a local copy of the profile repo.",
+        "Hardened plugin schema and marketplace metadata for reliable discovery and installation."
       ]
     },
     {
       slug: "procedural-textures",
       title: "Procedural texture generation",
-      status: "active",
-      period: "2025 - present",
-      summary: "Fine-tuned a vision-language model on a 120K procedural-texture dataset. High-quality synthesis, demoed to leading VFX studios.",
-      details: "Procedural textures are node-graph programs, not images. We fine-tune 8B-parameter VLMs to translate between visual references and node graphs. LoRA gives parameter-efficient adaptation; multi-scale dataset training improves generalization across texture complexity.",
+      status: "shipped",
+      period: "2025",
+      summary: "Fine-tuned a VLM on a 120K procedural-texture dataset. High-quality synthesis, demoed to leading VFX studios.",
+      details: "Procedural textures are node-graph programs, not images. Fine-tuned 8B-parameter VLMs (Llava_hf, MiMo-VL-7B-SFT) to translate between visual references and node graphs. LoRA for parameter-efficient adaptation; multi-scale dataset training for generalization across texture complexity.",
       stack: ["VLMs", "LoRA", "Llava_hf", "MiMo-VL-7B-SFT"],
       highlights: [
         "120K curated procedural-texture training set, multi-scale.",
         "LoRA fine-tuning on 8B-parameter VLMs for cost-efficient adaptation.",
-        "Demoed to leading VFX studios.",
-        "Powers automatic texture authoring inside the Mixar editor."
-      ]
-    },
-    {
-      slug: "exploring-next",
-      title: "Exploring next",
-      status: "exploring",
-      period: "ongoing",
-      summary: "Mesh retopology, 3D diffusion, and multi-modal embeddings. Pushing the boundaries of ML-for-3D.",
-      details: "Notes from the research backlog. Retopology to make AI-generated geometry production-ready; 3D diffusion as a richer generative prior; multi-modal embeddings to unify text, image, and geometry into a single retrieval substrate.",
-      stack: [],
-      highlights: [
-        "Retopology for production-quality geometry from AI output.",
-        "3D diffusion as a generative prior over mesh + texture.",
-        "Multi-modal embeddings: shared latent across text, image, and 3D."
+        "Demoed to leading VFX studios."
       ]
     }
   ],
