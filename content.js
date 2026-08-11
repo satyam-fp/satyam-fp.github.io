@@ -5,7 +5,7 @@ window.CONTENT = {
   role: "Chief AI Officer · Mixar",
   location: "San Francisco, USA",
 
-  bio: "Chief AI Officer at Mixar, leading the team building an AI-first 3D editor: an intent-centric AI copilot inside Blender that automates modeling, texturing, and shading through ML and vision-language models. My work sits at the intersection of AI, 3D computer vision, and creative tooling. B.Tech in Electrical Engineering (minor in CS) from IIT Gandhinagar; previously built backend systems at Leo1.",
+  bio: "Chief AI Officer at Mixar, leading the team building an AI-native 3D editor inside Blender. I work across ML, native desktop systems, agentic backends, GPU infrastructure, and the automation that makes them ship. My current obsession is turning the entire release loop — from semantic UI interaction to agent/GPU execution and visual verification — into a replayable harness designed to unlock up to 10× faster shipping. B.Tech in Electrical Engineering (minor in CS) from IIT Gandhinagar; previously built backend systems at Leo1.",
 
   // Projects: actual things I'm building. Status drives where they show.
   //   active    → currently in flight, shown in `ls now/` on homepage
@@ -14,6 +14,22 @@ window.CONTENT = {
   //   archived  → no longer maintained, only on /projects/
   // Each project links from homepage to /projects/#<slug>.
   projects: [
+    {
+      slug: "automated-ship-loop",
+      title: "Automated ship loop",
+      status: "active",
+      period: "Aug 2026 - present",
+      summary: "Semantic E2E harness for the real Mixar desktop app and agentic backend — native UI, multi-window workflows, GPU jobs, and state + visual verification. Designed to unlock up to 10× faster shipping.",
+      details: "I'm turning one of the hardest product surfaces to test — a custom Blender desktop application connected to a large agentic backend — into a replayable development harness. It drives the built app with real clicks, typing, drags, and file drops; follows work through agent and GPU execution; asserts machine-readable state; and leaves targeted screenshots for visual verification. Every scenario starts clean, and every regression can become a permanent test.",
+      stack: ["Python", "Blender", "C++", "WebSockets", "GUI automation", "Visual QA"],
+      highlights: [
+        "Semantic targets map to operators, properties, and custom-drawn surfaces instead of hard-coded screen coordinates.",
+        "Covers native and temporary windows, 3D viewport state, agent turns, file drops, and long-running GPU jobs.",
+        "Requires both state assertions and visual evidence before a workflow is considered shipped.",
+        "Runs replayable, isolated scenarios; failures stop early instead of contaminating later checks.",
+        "Proven on real image-to-3D and retopology jobs, not synthetic UI mocks."
+      ]
+    },
     {
       slug: "video-pipeline",
       title: "3D-to-video pipeline",
@@ -126,6 +142,7 @@ window.CONTENT = {
       location: "Gurugram",
       notes: [
         "Lead a specialized team developing an AI-first 3D editor.",
+        "Building a semantic desktop QA harness that connects real UI actions, agent execution, GPU jobs, state assertions, and visual verification into one automated ship loop.",
         "Lead R&D on foundational models for spatial understanding.",
         "Three pillars: scene reconstruction, surface cutting, procedural texture generation.",
         "Showcased VLM-driven procedural textures to leading VFX studios."
