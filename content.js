@@ -5,7 +5,24 @@ window.CONTENT = {
   role: "Chief AI Officer · Mixar",
   location: "San Francisco, USA",
 
-  bio: "Chief AI Officer at Mixar, leading the team building an AI-native 3D editor inside Blender. I work across ML, native desktop systems, agentic backends, GPU infrastructure, and the automation that makes them ship. My current obsession is turning the entire release loop — from semantic UI interaction to agent/GPU execution and visual verification — into a replayable harness designed to unlock up to 10× faster shipping. B.Tech in Electrical Engineering (minor in CS) from IIT Gandhinagar; previously built backend systems at Leo1.",
+  bio: "Chief AI Officer at Mixar, leading the team building an AI-native 3D editor inside Blender. Over the last three months I designed and shipped the production Blender agent — a LangGraph system that classifies, plans, builds, and verifies its own 3D work in a live editor session — now past 10,000 user interactions. I work across ML, native desktop systems (C++ Blender internals), agentic backends, GPU infrastructure, and the automation that makes them ship: a replayable QA harness designed to unlock up to 10× faster shipping. B.Tech in Electrical Engineering (minor in CS) from IIT Gandhinagar; previously built backend systems at Leo1.",
+
+  // Quick numbers strip on the homepage. Keep honest and verifiable.
+  stats: [
+    { k: "agent", v: "10,000+ user interactions with the production Blender agent" },
+    { k: "90 days", v: "~600 commits · 56 merged PRs · 3 repos (backend / C++ app fork / dashboard)" },
+    { k: "surface", v: "Python agentic backend · C++ Blender fork · React analytics dashboard" }
+  ],
+
+  // Rolling highlight log of what shipped, newest first.
+  shiplog: [
+    { date: "2026-08", line: "Director: native camera direction driving Seedance 2.5 scene-to-video — clay renders steer the generated camera." },
+    { date: "2026-08", line: "Gaussian-splat worlds: World Labs generation on the platform + native 3DGS rendering in the app (.spz / .ply)." },
+    { date: "2026-07", line: "Classifier v2 live in prod: LLM extracts typed facts, a deterministic resolver owns routing. Shadow-validated first." },
+    { date: "2026-07", line: "Agent Insights: LLM-judged analytics over every agent session — reconstructed chats, session profiles, retention." },
+    { date: "2026-06", line: "In-lane verification: deterministic geometry checks → geometric gate → VLM judge, with bounded fix loops." },
+    { date: "2026-05", line: "Rebuilt the Blender agent from scratch — intent classifier + specialist lanes live within a week, then hardened into prod." }
+  ],
 
   // Projects: actual things I'm building. Status drives where they show.
   //   active    → currently in flight, shown in `ls now/` on homepage
@@ -15,19 +32,84 @@ window.CONTENT = {
   // Each project links from homepage to /projects/#<slug>.
   projects: [
     {
+      slug: "mixie-agent",
+      title: "Mixie — the production Blender agent",
+      status: "active",
+      period: "May 2026 - present",
+      summary: "The agent inside Mixar: a LangGraph supervisor that classifies, plans, builds, and self-verifies 3D work in a live Blender session. Past 10,000 user interactions.",
+      details: "Rebuilt from scratch in May 2026 and hardened into production. A 5-node supervisor loop (classify → subclassify → orchestrate ⇄ execute → aggregate) runs over one checkpointed state and drives a real Blender instance over JSON-RPC/WebSocket. Specialist lanes (modeling, environment, texturing, terrain, generation) get narrow tool surfaces; environment and texturing fan isolated build jobs out to worker lanes. The v2 classifier separates what the user asked for from what the product can do: an LLM extracts typed facts into frames, and a deterministic resolver — unit-testable, reviewable — owns routing, gates, and honest 'can't do that yet' answers. Verification is in-lane: deterministic geometry checks, a geometric gate, then a VLM judge, with bounded tool-scoped fix loops, so lanes catch floating, misplaced, or mis-scaled geometry before the user sees it.",
+      stack: ["LangGraph", "Claude / GPT / Gemini (BYOK)", "Postgres checkpoints", "Redis", "WebSockets", "Langfuse", "Blender"],
+      highlights: [
+        "10,000+ user interactions in production.",
+        "Frame-based classifier v2: LLM fact extraction + deterministic routing, validated in shadow mode against prod traffic before the switch.",
+        "In-lane self-verification with tri-state verdicts and bounded fix loops — the agent critiques its own renders.",
+        "Interrupt/resume user gates (build-vs-generate, engine choice) asked once per session and remembered.",
+        "Token-metered billing: per-message deposit + incremental settlement from actual token usage; BYOK users never charged.",
+        "Distributed WebSocket transport — any backend instance serves any session; Redis-backed cancellation with explicit reasons.",
+        "Cross-session user memory: new chats know what past chats did."
+      ]
+    },
+    {
       slug: "automated-ship-loop",
       title: "Automated ship loop",
       status: "active",
       period: "Aug 2026 - present",
       summary: "Semantic E2E harness for the real Mixar desktop app and agentic backend — native UI, multi-window workflows, GPU jobs, and state + visual verification. Designed to unlock up to 10× faster shipping.",
-      details: "I'm turning one of the hardest product surfaces to test — a custom Blender desktop application connected to a large agentic backend — into a replayable development harness. It drives the built app with real clicks, typing, drags, and file drops; follows work through agent and GPU execution; asserts machine-readable state; and leaves targeted screenshots for visual verification. Every scenario starts clean, and every regression can become a permanent test.",
+      details: "I'm turning one of the hardest product surfaces to test — a custom Blender desktop application connected to a large agentic backend — into a replayable development harness. It drives the built app with real clicks, typing, drags, and file drops; follows work through agent and GPU execution; asserts machine-readable state; and leaves targeted screenshots for visual verification. The app now exports its own semantic hit-targets: widget-introspection RNA surfaces every native widget, and custom-drawn surfaces (chat, moodboard, Director) publish named targets, so tests bind to meaning instead of pixels. Every scenario starts clean, and every regression can become a permanent test.",
       stack: ["Python", "Blender", "C++", "WebSockets", "GUI automation", "Visual QA"],
       highlights: [
         "Semantic targets map to operators, properties, and custom-drawn surfaces instead of hard-coded screen coordinates.",
-        "Covers native and temporary windows, 3D viewport state, agent turns, file drops, and long-running GPU jobs.",
+        "Widget-introspection RNA exported by the app itself — including chat, moodboard, and Director custom surfaces.",
+        "Covers native and temporary windows, 3D viewport state, agent turns, simulated OS file drops, and long-running GPU jobs.",
         "Requires both state assertions and visual evidence before a workflow is considered shipped.",
         "Runs replayable, isolated scenarios; failures stop early instead of contaminating later checks.",
         "Proven on real image-to-3D and retopology jobs, not synthetic UI mocks."
+      ]
+    },
+    {
+      slug: "agent-insights",
+      title: "Agent Insights",
+      status: "active",
+      period: "Jul 2026 - present",
+      summary: "Analytics product over every agent session: turn-aware trace decoding, reconstructed chats, LLM-judged session profiles, retention analytics, and a team review workflow.",
+      details: "Built in ~3 weeks on the admin dashboard. A trace-analytics core decodes raw LangGraph observability traces turn by turn into SQLite; the UI reconstructs full conversations (including interrupts and cancelled turns), narrates per-turn work stories, and lets the team triage sessions with notes, assignments, and Mattermost notifications. LLM judges score sentiment and session objectives — scale-aware of user star ratings — and re-judge automatically after model upgrades. Non-English sessions translate inline. A Pulse tab tracks retention and user sentiment; a classifier-annotation tab builds ground truth that feeds the agent's v2 classifier.",
+      stack: ["Langfuse", "SQLite", "React", "FastAPI", "LLM judges (Sonnet 5 / Haiku 4.5)"],
+      highlights: [
+        "Turn-aware decoding of hundred-MB agent traces into a queryable store.",
+        "Chat reconstruction covers interrupt exchanges, cancelled turns, and per-turn logs.",
+        "Judged session profiles with trust badges and a needs-review queue; judges re-run themselves after model upgrades.",
+        "Retention + sentiment analytics (Pulse), BYOK flagging, credit-wall signals.",
+        "Classifier ground-truth annotation: v1 vs v2 routing compared per turn, exported for regression."
+      ]
+    },
+    {
+      slug: "director",
+      title: "Director — scene-to-video",
+      status: "active",
+      period: "Aug 2026 - present",
+      summary: "Native camera-directing workspace in the Mixar fork: draggable timeline, camera gates, handheld texture, trajectory overlay — rendering guide videos that steer Seedance 2.5 generation.",
+      details: "Grew out of the May 2026 filmmaking workspace, where I built custom Blender editor spaces in C++ (DNA/RNA/BKE, custom GPU-drawn regions: Studio, Sequences Grid, Create Shot wizard, cinematic viewport). Director is the camera layer: a Flow-style draggable, zoomable timeline with split/delete strips, camera gate controls, handheld camera texture via F-curve noise modifiers, a viewport trajectory overlay, and an Explore free-fly mode that drops cameras at the current view. The scene renders clay/EEVEE guide videos, and the backend binds them to a camera role for Seedance 2.5 — so generated video follows the 3D scene's camera exactly while the prompt owns material and light.",
+      stack: ["C++", "Blender internals (DNA/RNA/BKE)", "GPU immediate-mode draw", "Seedance 2.5", "fal.ai"],
+      highlights: [
+        "Full native editor spaces — not add-on panels: custom regions, widgets, keymaps, and theme tokens.",
+        "Camera trajectory overlay + Explore free-fly with camera placement at the current view.",
+        "Handheld camera realism via F-curve noise modifiers; presets from an artist feedback round.",
+        "Clay renders steer the generated camera via role-bound reference videos on Seedance 2.5.",
+        "Image uploads content-sniffed, reference limits enforced against provider contracts."
+      ]
+    },
+    {
+      slug: "splat-worlds",
+      title: "Gaussian-splat worlds",
+      status: "active",
+      period: "Aug 2026 - present",
+      summary: "Text prompt → explorable 3D world inside Blender: World Labs (Marble) generation wired through the platform, plus native 3DGS rendering (.spz / .ply import, render-ready cameras).",
+      details: "Two halves: the backend runs World Labs (Marble) world generation as a first-class job-queue service, and the app renders the results natively — local Gaussian-splat import for .spz and 3DGS .ply, a vendored KIRI 3DGS render pipeline, upright orientation handling, and camera-driven F12/animation renders so splat scenes behave like any other Blender scene.",
+      stack: ["World Labs (Marble)", "3D Gaussian splatting", "KIRI 3DGS", "C++ / Python", "Job queue"],
+      highlights: [
+        "World generation as a platform service with retry semantics tuned for long provider jobs.",
+        "Native .spz / 3DGS .ply import into the moodboard.",
+        "Render-ready splat scenes: EEVEE beauty guides, animation renders, crash-safe render handlers."
       ]
     },
     {
@@ -93,6 +175,19 @@ window.CONTENT = {
       ]
     },
     {
+      slug: "scenic-bpy",
+      title: "scenic-bpy",
+      status: "exploring",
+      period: "Aug 2026 - present",
+      summary: "A FastAPI-style framework for building Blender scenes with bpy: typed, composable components compiled to .blend / .glb / renders.",
+      details: "Personal side project. Declarative, typed scene components — the way FastAPI made web endpoints composable — compiled down to .blend files, GLB exports, or renders. Aimed at making programmatic scene construction testable and reusable instead of a pile of one-off bpy scripts.",
+      stack: ["Python", "bpy", "Pydantic-style typing"],
+      highlights: [
+        "Typed, composable scene components with a compile step.",
+        "Targets .blend, .glb, and render outputs from one description."
+      ]
+    },
+    {
       slug: "scene-ast",
       title: "Scene-AST",
       status: "exploring",
@@ -142,10 +237,11 @@ window.CONTENT = {
       location: "Gurugram",
       notes: [
         "Lead a specialized team developing an AI-first 3D editor.",
+        "Designed and shipped the production Blender agent — LangGraph supervisor, specialist lanes, in-lane self-verification — now past 10,000 user interactions.",
+        "Built Agent Insights: LLM-judged analytics over every agent session, from raw traces to retention dashboards.",
+        "Native C++ work on the Blender fork: filmmaking workspace, Director camera direction, Gaussian-splat rendering.",
         "Building a semantic desktop QA harness that connects real UI actions, agent execution, GPU jobs, state assertions, and visual verification into one automated ship loop.",
-        "Lead R&D on foundational models for spatial understanding.",
-        "Three pillars: scene reconstruction, surface cutting, procedural texture generation.",
-        "Showcased VLM-driven procedural textures to leading VFX studios."
+        "Lead R&D on foundational models for spatial understanding: scene reconstruction, surface cutting, procedural texture generation."
       ]
     },
     {

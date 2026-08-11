@@ -36,6 +36,12 @@ root.innerHTML = `
   ${promptLine("cat bio.txt")}
   <p class="block">${esc(c.bio)}</p>
 
+  ${c.stats && c.stats.length ? `
+  ${promptLine("mixar --stats")}
+  <div class="section">
+    ${c.stats.map(s => `<div class="row"><span class="k">${esc(s.k)}</span><span class="v">${esc(s.v)}</span></div>`).join("")}
+  </div>` : ""}
+
   ${promptLine("ls now/")}
   <ul class="bullet">
     ${c.projects.filter(p => p.status === "active" || p.status === "exploring").map(p =>
@@ -43,6 +49,12 @@ root.innerHTML = `
     ).join("")}
     <li class="dim">view all <a href="/projects/">/projects</a> →</li>
   </ul>
+
+  ${c.shiplog && c.shiplog.length ? `
+  ${promptLine("tail shiplog.txt")}
+  <div class="section">
+    ${c.shiplog.map(s => `<div class="row"><span class="k">${esc(s.date)}</span><span class="v">${esc(s.line)}</span></div>`).join("")}
+  </div>` : ""}
 
   ${promptLine("git log --oneline work/")}
   <div class="section">
